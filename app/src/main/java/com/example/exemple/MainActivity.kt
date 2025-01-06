@@ -3,11 +3,9 @@ package com.example.exemple
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import org.w3c.dom.Text
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,9 +22,18 @@ class MainActivity : AppCompatActivity() {
 
     private fun rollDice() {
         val dice = Dice(6)
-        val diceRoll = dice.roll()
-        val resultTextView: TextView = findViewById(R.id.textView2)
-        resultTextView.text = diceRoll.toString()
+        val dice2 = Dice(6)
+        var diceRoll = dice.roll()
+        var diceRoll2 = dice2.roll()
+        val resultTextView1: TextView = findViewById(R.id.de)
+        val resultTextView2: TextView = findViewById(R.id.de2)
+        resultTextView1.text = diceRoll.toString()
+        resultTextView2.text = diceRoll2.toString()
+
+        if (diceRoll == diceRoll2) {
+            val winTextView: TextView = findViewById(R.id.win)
+            winTextView.text = "ET CEST GAGNÉ!!!!!!!!!!!!!!!!!"
+        }
     }
 }
 
