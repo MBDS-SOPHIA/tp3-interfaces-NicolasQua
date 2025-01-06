@@ -16,13 +16,6 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
-        val rollButton: Button = findViewById(R.id.button3)
-        rollButton.isEnabled = false
-
-
-        rollButton.setOnClickListener {
-            rollDice()
-        }
 
         val input: EditText = findViewById(R.id.input)
 
@@ -30,7 +23,9 @@ class MainActivity : AppCompatActivity() {
         input.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                rollButton.isEnabled = isInputValid(s)
+                val winTextView: TextView = findViewById(R.id.win)
+                winTextView.text = ""
+                rollDice()
             }
             override fun afterTextChanged(s: Editable?) {}
         })
@@ -62,6 +57,8 @@ class MainActivity : AppCompatActivity() {
         val winTextView: TextView = findViewById(R.id.win)
         if (userInput != null && sum == userInput) {
             winTextView.text = "ET C'EST GAGNÉ !!!!!!!"
+            animateDice(resultTextView1)
+            animateDice(resultTextView2)
         }
     }
 }
@@ -71,4 +68,14 @@ class Dice(private val numSides: Int) {
     fun roll(): Int {
         return (1..numSides).random()
     }
+}
+
+private fun animateDice(view: TextView) {
+    view.animate()
+        .translationYBy(50f)
+        .setDuration(300)
+        .withEndAction {
+            view.animate().translationYBy(-50f).setDuration(300)
+        }
+        .start()
 }
